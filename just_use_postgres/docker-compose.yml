@@ -1,0 +1,34 @@
+# Docker Compose file for Redis and PostgreSQL services
+# Version of the Docker Compose file format. '3.8' is a recent, stable version.
+version: '3.8'
+
+# Define the services (containers) that make up your application.
+services:
+  # PostgreSQL service definition
+  postgres:
+    # Use a specific version of the official PostgreSQL image for stability. 'alpine' is lightweight.
+    image: postgres
+    # A friendly name for the PostgreSQL container.
+    container_name: my-just-to-use-postgres-container
+    # Always restart the container if it stops.
+    restart: always
+    # Environment variables are used to configure the PostgreSQL instance.
+    # IMPORTANT: Change these default credentials for production environments.
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: just-use-postgres
+    # Maps the host port 5432 to the container's port 5432.
+    ports:
+      - "5432:5432"
+    # Persists the PostgreSQL data.
+    # volumes:
+    #   # Maps the 'just-use-postgres-data' named volume to the directory where PostgreSQL stores its data.
+    #   - just-use-postgres-data:/var/lib/postgresql/data
+
+# Top-level 'volumes' key to declare the named volumes used by the services.
+# Docker manages the lifecycle of these volumes.
+# volumes:
+#   just-use-postgres-data:
+
+#  docker exec -it my-just-to-use-postgres-container psql -U postgres
